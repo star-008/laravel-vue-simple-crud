@@ -8,25 +8,29 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
-import VueRouter from 'vue-router';
 
-window.Vue.use(VueRouter);
+import router from './routes';
 
-import CompaniesIndex from './components/companies/CompaniesIndex.vue';
-import CompaniesCreate from './components/companies/CompaniesCreate.vue';
-import CompaniesEdit from './components/companies/CompaniesEdit.vue';
+// Sweet Alert
+window.swal = require('sweetalert2')
 
-const routes = [
-    {
-        path: '/',
-        components: {
-            companiesIndex: CompaniesIndex
-        }
-    },
-    {path: '/admin/companies/create', component: CompaniesCreate, name: 'createCompany'},
-    {path: '/admin/companies/edit/:id', component: CompaniesEdit, name: 'editCompany'},
-]
+window.toast = swal.mixin({
+  toast: true,
+  position: 'top-end',
+  showConfirmButton: false,
+  timer: 3000
+});
 
-const router = new VueRouter({ routes })
+/**
+ * Next, we will create a fresh Vue application instance and attach it to
+ * the page. Then, you may begin adding components to this application
+ * or customize the JavaScript scaffolding to fit your unique needs.
+ */
 
-const app = new Vue({ router }).$mount('#app')
+
+Vue.component('navbar', require('./partials/Navbar.vue'));
+
+const app = new Vue({
+    el: '#app',
+    router
+});
